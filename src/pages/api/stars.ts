@@ -1,4 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+
 import fs from 'fs';
 import constellations from '../../../public/constellations'
 
@@ -7,7 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 type Data = Array<Array<{id:number,ra:number,de:number}>|{highX:number,highY:number}>
 
 
-
+/*
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -22,52 +22,51 @@ export default async function handler(
     let highX = 0;
     let prev = null;
 
-    let cons:string = 'Ori';
+    let cons:string = 'Gem';
 
+    let objectData = await fetch(`https://www.astropical.space/api.php?table=stars&which=constellation&limit=${cons}&format=json`);
+    let objectJson = objectData.json();
+    console.log(constellations[cons])
     for(let i=0; i < constellations[cons].length; i=i+1){
       let t = [];
       for(let j=0; j < constellations[cons][i].length; j++){
         
         if(constellations[cons][i][j+1]){
 
-          let data1 = await fetch(`https://www.astropical.space/api.php?table=stars&which=hip&limit=${constellations[cons][i][j]}&format=json`);
-          let json1 = await data1.json();
-
-          let data2 = await fetch(`https://www.astropical.space/api.php?table=stars&which=hip&limit=${constellations[cons][i][j+1]}&format=json`);
-       
-          let json2 = await data2.json();
-
-          
-          if(!json1.hipstars[0] || !json2.hipstars[0]){
+          let json1 = objectJson.hipstars.find(x => x.hip === constellations[cons][i][j]);    
+          let json2 = objectJson.hipstars.find(x => x.hip === constellations[cons][i][j+1]);
+ 
+          if(!json1 || !json2){
             continue;
           }
+
           lowX =
-          json1.hipstars[0].ra < json2.hipstars[0].ra && json1.hipstars[0].ra < lowX ? json1.hipstars[0].ra : 
-          json2.hipstars[0].ra < json1.hipstars[0].ra && json2.hipstars[0].ra < lowX ? json2.hipstars[0].ra : 
+          json1.ra < json2.ra && json1.ra < lowX ? json1.ra : 
+          json2.ra < json1.ra && json2.ra < lowX ? json2.ra : 
           lowX;
 
           lowY =
-          json1.hipstars[0].de < json2.hipstars[0].de && json1.hipstars[0].de < lowY ? json1.hipstars[0].de : 
-          json2.hipstars[0].de < json1.hipstars[0].de && json2.hipstars[0].de < lowY ? json2.hipstars[0].de : 
+          json1.de < json2.de && json1.de < lowY ? json1.de : 
+          json2.de < json1.de && json2.de < lowY ? json2.de : 
           lowY;
           
           highY =
-          json1.hipstars[0].de > json2.hipstars[0].de && json1.hipstars[0].de > highY ? json1.hipstars[0].de : 
-          json2.hipstars[0].de > json1.hipstars[0].de && json2.hipstars[0].de > highY ? json2.hipstars[0].de : 
+          json1.de > json2.de && json1.de > highY ? json1.de : 
+          json2.de > json1.de && json2.de > highY ? json2.de : 
           highY;
 
           
           highX =
-          json1.hipstars[0].ra > json2.hipstars[0].ra && json1.hipstars[0].ra > highX ? json1.hipstars[0].ra : 
-          json2.hipstars[0].ra > json1.hipstars[0].ra && json2.hipstars[0].ra > highX ? json2.hipstars[0].ra : 
+          json1.ra > json2.ra && json1.ra > highX ? json1.ra : 
+          json2.ra > json1.ra && json2.ra > highX ? json2.ra : 
           highX;
 
-          obj[json1.hipstars[0].hip]={id:json1.hipstars[0].hip,ra:json1.hipstars[0].ra,de:json1.hipstars[0].de}
-          obj[json2.hipstars[0].hip]={id:json2.hipstars[0].hip,ra:json2.hipstars[0].ra,de:json2.hipstars[0].de}
+          obj[json1.hip]={id:json1.hip,ra:json1.ra,de:json1.de}
+          obj[json2.hip]={id:json2.hip,ra:json2.ra,de:json2.de}
 
           obj2.push([
-            {id:json1.hipstars[0].hip,ra:json1.hipstars[0].ra,de:json1.hipstars[0].de},
-            {id:json2.hipstars[0].hip,ra:json2.hipstars[0].ra,de:json2.hipstars[0].de}
+            {id:json1.hip,ra:json1.ra,de:json1.de},
+            {id:json2.hip,ra:json2.ra,de:json2.de}
           ])
         }
         /*if(count === 2){
@@ -80,7 +79,7 @@ export default async function handler(
         else{
           t.push(constellations['Ori'][i][j])
           count++;
-        }*/
+        }
       }
       
     
@@ -133,7 +132,7 @@ export default async function handler(
       obj2.push([
         {id:json1.hipstars[0].hip,ra:json1.hipstars[0].ra,de:json1.hipstars[0].de},
         {id:json2.hipstars[0].hip,ra:json2.hipstars[0].ra,de:json2.hipstars[0].de}
-      ])*/
+      ])
     
     }
    
@@ -149,3 +148,4 @@ export default async function handler(
   
   
 }
+*/
