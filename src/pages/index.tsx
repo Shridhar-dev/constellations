@@ -24,7 +24,7 @@ export default function Home() {
     const data: coordinates = JSON.parse(res);
     setCoordinates(data);
     let info = await fetch(
-      `http://localhost:3000/api/info?constellation=${search}`
+      `https://constellations-six.vercel.app/api/info?constellation=${search}`
     );
     let infoJson = await info.json();
 
