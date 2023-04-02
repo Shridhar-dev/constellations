@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { createRef, RefObject, useEffect, useState } from "react";
 import useConstellations from "@/hooks/useConstellation";
 import { coordinates } from "../../types";
-import SearchItem from "@/components/SearchItem";
+import { SearchItem, Star, Tooltip } from "@/components";
 import constellationAbbreviations from "../../public/constellationAbbreviations";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -12,15 +12,23 @@ const outercanvas: RefObject<HTMLDivElement> = createRef();
 
 export default function Home() {
   const [search, setSearch] = useState<string>(""),
+    [info, setInfo] = useState<string>(""),
     [coordinates, setCoordinates] = useState<coordinates>(),
     [dimensions, setDimensions] = useState({ width: 0, height: 0 }),
     [scaler, setScaler] = useState<number>(1),
     [lines, setLines] = useState<{}[]>([]);
 
   async function setConstellations(name: string) {
+    setInfo("Loading...");
     let res = await useConstellations(name);
     const data: coordinates = JSON.parse(res);
     setCoordinates(data);
+    let info = await fetch(
+      `http://localhost:3000/api/info?constellation=${search}`
+    );
+    let infoJson = await info.json();
+
+    setInfo(infoJson);
   }
 
   useEffect(() => {
@@ -71,8 +79,9 @@ export default function Home() {
 
         let line = (
           <div
+            key={coord[0].hip + "-" + coord[1].hip}
             id={coord[0].hip + "-" + coord[1].hip}
-            className={` z-10 line-anim delay-[${
+            className={` line-anim delay-[${
               i * 1000
             }ms] absolute h-px bg-white origin-left`}
             style={{
@@ -121,8 +130,10 @@ export default function Home() {
                   name={val}
                   abbr={constellationAbbreviations[val]}
                   setConstellations={setConstellations}
+                  setSearch={setSearch}
                 />
               ))}
+          <div className=" text-white mt-5">{info}</div>
         </div>
         <div className="col-span-8 flex justify-center items-center h-screen">
           <div
@@ -130,26 +141,24 @@ export default function Home() {
             ref={outercanvas}
           >
             <>
-              {coordinates
-                ? coordinates[1].map((coord, i) => {
-                    return (
-                      <div
-                        key={i}
-                        id={coord[2].toString()}
-                        className="h-3 w-3 star transition duration-200 rounded-full border border-white border-1 bg-black  absolute z-20 hover:bg-white"
-                        style={{
-                          top: coord[1] / scaler + dimensions.height / 2,
-                          left: (coord[0] / scaler) * 15 + dimensions.width / 3,
-                          bottom: "20px",
-                        }}
-                      ></div>
-                    );
-                  })
-                : null}
-
               {lines.map((line) => {
                 return line;
               })}
+              {coordinates
+                ? coordinates[1].map((coord, i) => {
+                    return (
+                      <Star
+                        key={i}
+                        id={coord[2].toString()}
+                        top={coord[1]}
+                        left={coord[0]}
+                        scaler={scaler}
+                        name={coord[3]}
+                        dimensions={dimensions}
+                      />
+                    );
+                  })
+                : null}
             </>
           </div>
         </div>

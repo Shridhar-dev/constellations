@@ -58,12 +58,22 @@ export default async function useConstellation(name: string) {
             ? json2.ra
             : highX;
 
-        obj[json1.hip] = { hip: json1.hip, ra: json1.ra, de: json1.de };
-        obj[json2.hip] = { hip: json2.hip, ra: json2.ra, de: json2.de };
+        obj[json1.hip] = {
+          hip: json1.hip,
+          desig: json1.desig,
+          ra: json1.ra,
+          de: json1.de,
+        };
+        obj[json2.hip] = {
+          hip: json2.hip,
+          desig: json2.desig,
+          ra: json2.ra,
+          de: json2.de,
+        };
 
         obj2.push([
-          { hip: json1.hip, ra: json1.ra, de: json1.de },
-          { hip: json2.hip, ra: json2.ra, de: json2.de },
+          { hip: json1.hip, desig: json1.desig, ra: json1.ra, de: json1.de },
+          { hip: json2.hip, desig: json2.desig, ra: json2.ra, de: json2.de },
         ]);
       }
     }
@@ -76,6 +86,7 @@ export default async function useConstellation(name: string) {
       (star.ra - lowX) * 15,
       (star.de - lowY) * 20 - (highY - lowY) * 10,
       star.hip,
+      star.desig,
     ]);
   });
 

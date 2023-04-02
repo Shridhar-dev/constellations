@@ -1,8 +1,9 @@
 
-type stars = [number,number,number][];
+type stars = [number,number,number,string][];
 
 type star = {
     hip:number,
+    desig:string,
     ra: number,
     de: number
 }
