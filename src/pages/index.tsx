@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { createRef, RefObject, useEffect, useState } from "react";
-import useConstellations from "@/hooks/useConstellation";
+import getConstellations from "@/utils/getConstellation";
 import { coordinates } from "../../types";
 import { SearchItem, Star, Tooltip } from "@/components";
 import constellationAbbreviations from "../../public/constellationAbbreviations";
@@ -20,7 +20,7 @@ export default function Home() {
 
   async function setConstellations(name: string) {
     setInfo("Loading...");
-    let res = await useConstellations(name);
+    let res = await getConstellations(name);
     const data: coordinates = JSON.parse(res);
     setCoordinates(data);
     let info = await fetch(
