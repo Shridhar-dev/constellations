@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import puppeteer from 'puppeteer';
+import { chromium } from 'playwright';
 
 
 export default async function handler(
@@ -9,7 +9,7 @@ export default async function handler(
 
   (async () => {
    
-    const browser = await puppeteer.launch({headless:true});
+    const browser = await chromium.launch({headless:true});
     const page = await browser.newPage();
     await page.goto(`https://www.astropical.space/constel.php?sel=&nam=${req.query.constellation}`);
     await page.click('tbody#dbtable>tr> td:nth-child(13) >a')
