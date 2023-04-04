@@ -9,6 +9,7 @@ specifiers:
   eslint-config-next: 13.2.3
   next: 13.2.3
   playwright: ^1.27.1
+  playwright-core: ^1.27.1
   postcss: ^8.4.21
   react: 18.2.0
   react-dom: 18.2.0
@@ -22,13 +23,14 @@ dependencies:
   eslint: 8.35.0
   eslint-config-next: 13.2.3_ycpbpc6yetojsgtrx3mwntkhsu
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
-  playwright: 1.32.1
+  playwright-core: 1.32.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   typescript: 4.9.5
 
 devDependencies:
   autoprefixer: 10.4.13_postcss@8.4.21
+  playwright: 1.32.1
   postcss: 8.4.21
   tailwindcss: 3.2.7_postcss@8.4.21
 
@@ -1911,7 +1913,6 @@ packages:
     resolution: {integrity: sha512-KZYUQC10mXD2Am1rGlidaalNGYk3LU1vZqqNk0gT4XPty1jOqgup8KDP8l2CUlqoNKhXM5IfGjWgW37xvGllBA==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: false
 
   /playwright/1.32.1:
     resolution: {integrity: sha512-GnEizysWMvoqHC3I9l8+4/ZxeLwLNdJJG76xdKGxzOcIZDcw5RSk/FKrFb5CuA+zcLpjIM2p9eR9Z4CuUDkWXg==}
@@ -1920,7 +1921,7 @@ packages:
     requiresBuild: true
     dependencies:
       playwright-core: 1.32.1
-    dev: false
+    dev: true
 
   /postcss-import/14.1.0_postcss@8.4.21:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
