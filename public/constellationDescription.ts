@@ -1,4 +1,4 @@
-const constellations = {
+const constellationDescription = {
     Andromeda: "Andromeda is one of the 48 constellations listed by the 2nd-century Greco-Roman astronomer Ptolemy and remains one of the 88 modern constellations.",
     Antlia: "Antlia is a constellation in the southern sky. Its name means 'pump' in Latin; it represents an air pump.",
     Apus: "Apus is a constellation in the southern sky. Its name means 'bird of paradise'.",
@@ -88,3 +88,5 @@ const constellations = {
     Vulpecula: "Vulpecula is a faint constellation located near Cygnus and Lyra. Its name means 'little fox' in Latin."
 
 }   
+
+export default constellationDescription;
