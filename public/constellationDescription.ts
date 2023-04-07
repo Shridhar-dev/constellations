@@ -1,4 +1,4 @@
-const constellationDescription = {
+const constellationDescription:{[key:string]:string} = {
     Andromeda: "Andromeda is one of the 48 constellations listed by the 2nd-century Greco-Roman astronomer Ptolemy and remains one of the 88 modern constellations.",
     Antlia: "Antlia is a constellation in the southern sky. Its name means 'pump' in Latin; it represents an air pump.",
     Apus: "Apus is a constellation in the southern sky. Its name means 'bird of paradise'.",

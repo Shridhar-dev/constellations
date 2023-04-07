@@ -8,7 +8,7 @@ function SearchItem({
 }: {
   name: string;
   abbr: string;
-  setConstellations: (name: string) => void;
+  setConstellations: (name: string, fullName: string) => void;
   setSearch: (name: string) => void;
 }) {
   return (
@@ -16,7 +16,7 @@ function SearchItem({
       className="bg-[#3D3A3A] text-white w-full px-3 py-2 mt-2 cursor-pointer"
       onClick={() => {
         setSearch(name);
-        setConstellations(abbr);
+        setConstellations(abbr, name);
       }}
     >
       {name}

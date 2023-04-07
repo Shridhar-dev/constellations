@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import { createRef, RefObject, useEffect, useState } from "react";
 import getConstellations from "@/utils/getConstellation";
 import { coordinates } from "../../types";
-import { SearchItem, Star, Tooltip } from "@/components";
+import { SearchItem, Star } from "@/components";
 import constellationAbbreviations from "../../public/constellationAbbreviations";
+import constellationDescription from "../../public/constellationDescription";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,17 +19,24 @@ export default function Home() {
     [scaler, setScaler] = useState<number>(1),
     [lines, setLines] = useState<{}[]>([]);
 
-  async function setConstellations(name: string) {
+  async function setConstellations(name: string, fullName: string) {
     setInfo("Loading...");
     let res = await getConstellations(name);
     const data: coordinates = JSON.parse(res);
     setCoordinates(data);
-    let info = await fetch(
-      `https://constellations-six.vercel.app/api/info?constellation=${search}`
-    );
-    let infoJson = await info.json();
-
-    setInfo(infoJson);
+    try {
+      let info = await fetch(
+        `https://constellations-six.vercel.app/api/info?constellation=${search}`
+      );
+      setInfo(await info.json());
+    } catch (err) {
+      console.log(
+        `Due to ${err}, fetching detailed has failed, showing short info....`
+      );
+      setTimeout(() => {
+        setInfo(constellationDescription[fullName]);
+      }, 1000);
+    }
   }
 
   useEffect(() => {
