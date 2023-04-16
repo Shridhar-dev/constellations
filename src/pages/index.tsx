@@ -26,7 +26,7 @@ export default function Home() {
     setCoordinates(data);
     try {
       let info = await fetch(
-        `http://localhost:3000/api/info?constellation=${search}`
+        `https://constellations-shridhar-dev.vercel.app/api/info?constellation=${search}`
       );
       setInfo(await info.json());
     } catch (err) {
