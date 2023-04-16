@@ -26,7 +26,7 @@ export default function Home() {
     setCoordinates(data);
     try {
       let info = await fetch(
-        `https://constellations-six.vercel.app/api/info?constellation=${search}`
+        `http://localhost:3000/api/info?constellation=${search}`
       );
       setInfo(await info.json());
     } catch (err) {
@@ -54,6 +54,8 @@ export default function Home() {
           outercanvas.current.offsetWidth
       ) {
         setScaler(3);
+      } else {
+        setScaler(1);
       }
     }
   }, [coordinates]);

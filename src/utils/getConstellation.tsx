@@ -4,8 +4,8 @@ import { star, stars } from "../../types";
 export default async function useConstellation(name: string) {
   let obj: { [key: string]: star } = {};
   let obj2 = [];
-  let lowX = 100000000;
-  let lowY = 100000000;
+  let lowX = 100000000; // just a large arbitrary value, not necessary to be 100000000
+  let lowY = 100000000; // just a large arbitrary value, not necessary to be 100000000
   let highY = 0;
   let highX = 0;
 
