@@ -41,6 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!coordinates) return;
+
     if (outercanvas.current && coordinates[2]) {
       setDimensions({
         width: outercanvas.current.offsetWidth,
@@ -110,6 +111,20 @@ export default function Home() {
       }
     });
   }, [dimensions, coordinates]);
+
+  useEffect(() => {
+    window.onresize = () => {
+      if (window.innerWidth < 450) {
+        alert(
+          "Haven't actually made it responsive yet, please view on a bigger screen"
+        );
+      }
+    };
+
+    return () => {
+      window.onresize = null;
+    };
+  }, []);
 
   return (
     <>
